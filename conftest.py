@@ -1,3 +1,4 @@
+import os
 import pytest
 import logging
 
@@ -17,7 +18,6 @@ def pytest_addoption(parser):
 @pytest.fixture
 def browser(request):
     current_browser = request.config.getoption("--browser")
-    url = request.config.getoption("--url")
     headless = request.config.getoption("--headless")
     maximized = request.config.getoption("--maximized")
     logger = logging.getLogger('BrowserLogger')
@@ -46,12 +46,6 @@ def browser(request):
     if maximized:
         driver.maximize_window()
 
-    def open(path=""):
-        return driver.get(url + path)
-
-    driver.open = open
-    driver.open()
-
     logger.info(f"Browser {current_browser} started with {driver.desired_capabilities}")
 
     def finalization():
@@ -61,6 +55,11 @@ def browser(request):
     request.addfinalizer(finalization)
 
     return driver
+
+
+@pytest.fixture
+def base_url(request):
+    return request.config.getoption("--url")
 
 
 @pytest.fixture
