@@ -1,7 +1,10 @@
 import pytest
+import logging
 
 from selenium import webdriver
 from selenium.webdriver.opera.options import Options as OperaOptions
+
+logging.basicConfig(level=logging.INFO, filename="logs/logger.log")
 
 
 def pytest_addoption(parser):
@@ -17,8 +20,12 @@ def browser(request):
     url = request.config.getoption("--url")
     headless = request.config.getoption("--headless")
     maximized = request.config.getoption("--maximized")
+    logger = logging.getLogger('BrowserLogger')
+    test_name = request.node.name
 
     driver = None
+
+    logger.info(f"====> Test {test_name} started ====")
 
     if current_browser == "chrome":
         options = webdriver.ChromeOptions()
@@ -45,7 +52,13 @@ def browser(request):
     driver.open = open
     driver.open()
 
-    request.addfinalizer(driver.quit)
+    logger.info(f"Browser {current_browser} started with {driver.desired_capabilities}")
+
+    def finalization():
+        driver.quit()
+        logger.info(f"===> Test {test_name} finished")
+
+    request.addfinalizer(finalization)
 
     return driver
 
