@@ -1,10 +1,10 @@
 import random
 
 from selenium.webdriver.common.by import By
-from page_object.opencart_admin.BasePageAdmin import BasePageAdmin
-from page_object.opencart_admin.elements.Alerts import Alerts
-from page_object.opencart_admin.elements.CreateProductForm import CreateProductFrom
-from page_object.opencart_admin.elements.SearchProductForm import SearchProductForm
+from page_objects.opencart_admin.BasePageAdmin import BasePageAdmin
+from page_objects.opencart_admin.elements.Alerts import Alerts
+from page_objects.opencart_admin.elements.CreateProductForm import CreateProductFrom
+from page_objects.opencart_admin.elements.SearchProductForm import SearchProductForm
 
 
 class ProductPageAdmin(BasePageAdmin):

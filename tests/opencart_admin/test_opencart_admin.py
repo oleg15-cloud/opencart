@@ -1,6 +1,6 @@
-from page_object.opencart_admin.LoginPageAdmin import LoginPageAdmin
-from page_object.opencart_admin.MainPageAdmin import MainPageAdmin
-from page_object.opencart_admin.ProductPageAdmin import ProductPageAdmin
+from page_objects.opencart_admin.LoginPageAdmin import LoginPageAdmin
+from page_objects.opencart_admin.MainPageAdmin import MainPageAdmin
+from page_objects.opencart_admin.ProductPageAdmin import ProductPageAdmin
 
 
 def test_adding_a_new_product_in_the_admin_section(browser, user):

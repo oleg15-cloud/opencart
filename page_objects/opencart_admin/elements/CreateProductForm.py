@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-from page_object.opencart_admin.BasePageAdmin import BasePageAdmin
+from page_objects.opencart_admin.BasePageAdmin import BasePageAdmin
 
 
 class CreateProductFrom(BasePageAdmin):

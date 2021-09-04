@@ -1,5 +1,5 @@
-from page_object.opencart_admin.BasePageAdmin import BasePageAdmin
-from page_object.opencart_admin.elements.Navigation import Navigation
+from page_objects.opencart_admin.BasePageAdmin import BasePageAdmin
+from page_objects.opencart_admin.elements.Navigation import Navigation
 
 
 class MainPageAdmin(BasePageAdmin):
