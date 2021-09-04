@@ -1,5 +1,5 @@
-from page_object.opencart.BasePage import BasePage
-from page_object.opencart.elements.TopMenu import TopMenu
+from page_objects.opencart.BasePage import BasePage
+from page_objects.opencart.elements.TopMenu import TopMenu
 
 
 class MainPage(BasePage):

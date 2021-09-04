@@ -1,5 +1,5 @@
-from page_object.opencart.elements.UserRegistrationForm import UserRegistrationForm
-from page_object.opencart.BasePage import BasePage
+from page_objects.opencart.elements.UserRegistrationForm import UserRegistrationForm
+from page_objects.opencart.BasePage import BasePage
 
 
 class RegistrationPage(BasePage):
