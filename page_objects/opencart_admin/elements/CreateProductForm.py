@@ -12,6 +12,7 @@ class CreateProductFrom(BasePageAdmin):
     BTN_SAVE_PRODUCT = (By.XPATH, "//i[@class='fa fa-save']")
 
     def fill_out_product_form(self, product_name):
+        self.logger.info("Fill out product form")
         self.browser.find_element(*self.INPUT_PRODUCT_NAME).clear()
         self.browser.find_element(*self.INPUT_PRODUCT_NAME).send_keys(product_name)
         self.browser.find_element(*self.INPUT_META_TAG_TITLE).clear()
@@ -22,4 +23,5 @@ class CreateProductFrom(BasePageAdmin):
         return self
 
     def save_product(self):
+        self.logger.info("Save product form")
         self.browser.find_element(*self.BTN_SAVE_PRODUCT).click()

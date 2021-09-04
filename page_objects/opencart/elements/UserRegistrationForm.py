@@ -20,6 +20,7 @@ class UserRegistrationForm(BasePage):
 
     def fill_out_registration_form(self):
         _time = time.time_ns()
+        self.logger.info(f"Fill out registration form: email - user{_time}@test.com, pass - qwerty")
         self.browser.find_element(*self.INPUT_FIRST_NAME).send_keys(f"user{_time}")
         self.browser.find_element(*self.INPUT_LAST_NAME).send_keys(f"user{_time}")
         self.browser.find_element(*self.INPUT_EMAIL).send_keys(f"user{_time}@test.com")
@@ -29,12 +30,15 @@ class UserRegistrationForm(BasePage):
         return self
 
     def accept_privacy_policy(self):
+        self.logger.info("Accept privacy policy")
         self.browser.find_element(*self.CHECKBOX_PRIVACY_POLICY).click()
         return self
 
     def send_registration_form(self):
+        self.logger.info("Submit registration form")
         self.browser.find_element(*self.BTN_CONTINUE).click()
         return self
 
     def check_success_registration_message(self):
+        self.logger.info("Check success registration message")
         self.browser.find_element(*self.SUCCESS_REGISTRATION_MESSAGE)

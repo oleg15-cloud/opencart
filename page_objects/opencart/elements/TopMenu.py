@@ -1,5 +1,4 @@
 import random
-
 from selenium.webdriver.common.by import By
 from page_objects.opencart.BasePage import BasePage
 from selenium.webdriver.support.ui import WebDriverWait
@@ -15,10 +14,12 @@ class TopMenu(BasePage):
     CURRENCY_STRONG = (By.XPATH, "//strong")
 
     def go_to_registration_page(self):
+        self.logger.info("Go to registration page")
         self.browser.find_element(*self.BTN_MY_ACCOUNT).click()
         self.browser.find_element(*self.BTN_MY_ACCOUNT_REGISTER).click()
 
     def switch_currency(self):
+        self.logger.info("Switch currency")
         WebDriverWait(self.browser, 2).until(ec.visibility_of_element_located((By.XPATH, self.BTN_CURRENCY))).click()
         currencies = self.browser.find_elements(*self.CURRENCIES)
         random_currency = random.randint(0, len(currencies) - 1)
@@ -26,4 +27,5 @@ class TopMenu(BasePage):
         return self.browser.find_element(*self.CURRENCY_STRONG)
 
     def check_new_currency(self, web_element):
+        self.logger.info("Check new currency")
         assert web_element == self.browser.find_element(*self.CURRENCY_STRONG)

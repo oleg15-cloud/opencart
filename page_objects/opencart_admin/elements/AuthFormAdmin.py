@@ -10,6 +10,7 @@ class AuthFormAdmin(BasePageAdmin):
     BTN_LOGIN = (By.XPATH, "//button[@class='btn btn-primary']")
 
     def fill_out_auth_form(self, username, password):
+        self.logger.info("Fill out auth form")
         self.browser.find_element(*self.INPUT_USERNAME).clear()
         self.browser.find_element(*self.INPUT_USERNAME).send_keys(username)
         self.browser.find_element(*self.INPUT_PASSWORD).clear()
@@ -17,4 +18,5 @@ class AuthFormAdmin(BasePageAdmin):
         return self
 
     def send_auth_from(self):
+        self.logger.info("Submit auth form")
         self.browser.find_element(*self.BTN_LOGIN).click()

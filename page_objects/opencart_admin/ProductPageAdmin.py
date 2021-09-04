@@ -19,6 +19,7 @@ class ProductPageAdmin(BasePageAdmin):
     ALERT_MESSAGE = (By.XPATH, "//div[@class='alert alert-success alert-dismissible']")
 
     def go_to_add_new_product_form(self):
+        self.logger.info("Click on 'add new product' button")
         self.browser.find_element(*self.BTN_ADD_NEW_PRODUCT).click()
 
     def create_new_product(self):
@@ -35,13 +36,16 @@ class ProductPageAdmin(BasePageAdmin):
             .check_product_in_product_list(product_name)
 
     def select_product_in_product_list_by_position(self, position):
+        self.logger.info("Select product in checkbox")
         self.browser.find_elements(*self.CHECKBOXES)[position].click()
         return self
 
     def delete_product_in_product_list(self):
+        self.logger.info("Delete product")
         self.browser.find_element(*self.BTN_DELETE_PRODUCT).click()
         Alerts(self.browser).alert_accept()
         return self
 
     def check_alert_message(self):
+        self.logger.info("Check alert message")
         self.browser.find_element(*self.ALERT_MESSAGE)

@@ -5,7 +5,8 @@ import logging
 from selenium import webdriver
 from selenium.webdriver.opera.options import Options as OperaOptions
 
-logging.basicConfig(level=logging.INFO, filename="logs/logger.log")
+logging.basicConfig(level=logging.INFO, filename="logs/logger.log",
+                    format='%(asctime)s %(levelname)s %(filename)s %(message)s')
 
 
 def pytest_addoption(parser):
@@ -26,7 +27,7 @@ def browser(request):
 
     driver = None
 
-    logger.info(f"====> Test {test_name} started ====")
+    logger.info(f"-----> Test '{test_name}' started -----")
 
     if current_browser == "chrome":
         options = webdriver.ChromeOptions()
@@ -50,7 +51,7 @@ def browser(request):
     logger.info(f"Browser {current_browser} started with {driver.desired_capabilities}")
 
     def open(path=""):
-        logger.info(f"Open url {url}{path}")
+        logger.info(f"Open url '{url}{path}'")
         return driver.get(url + path)
 
     driver.open = open
@@ -58,7 +59,7 @@ def browser(request):
 
     def finalization():
         driver.quit()
-        logger.info(f"===> Test {test_name} finished")
+        logger.info(f"-----> Test '{test_name}' finished -----")
 
     request.addfinalizer(finalization)
 
