@@ -1,7 +1,7 @@
 import random
 
 from selenium.webdriver.common.by import By
-from page_object.opencart.BasePage import BasePage
+from page_objects.opencart.BasePage import BasePage
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 

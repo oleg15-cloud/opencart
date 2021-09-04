@@ -1,7 +1,7 @@
 import time
 
 from selenium.webdriver.common.by import By
-from page_object.opencart.BasePage import BasePage
+from page_objects.opencart.BasePage import BasePage
 
 
 class UserRegistrationForm(BasePage):
