@@ -1,5 +1,6 @@
 import time
 
+from allure import step
 from selenium.webdriver.common.by import By
 from page_objects.opencart.BasePage import BasePage
 
@@ -18,9 +19,10 @@ class UserRegistrationForm(BasePage):
 
     SUCCESS_REGISTRATION_MESSAGE = (By.XPATH, "//h1[text()='Your Account Has Been Created!']")
 
+    @step("Fill out registration form")
     def fill_out_registration_form(self):
         _time = time.time_ns()
-        self.logger.info(f"Fill out registration form: email - user{_time}@test.com, pass - qwerty")
+        self.logger.info(f"STEP: Fill out registration form: email: user{_time}@test.com, password: qwerty")
         self.browser.find_element(*self.INPUT_FIRST_NAME).send_keys(f"user{_time}")
         self.browser.find_element(*self.INPUT_LAST_NAME).send_keys(f"user{_time}")
         self.browser.find_element(*self.INPUT_EMAIL).send_keys(f"user{_time}@test.com")
@@ -29,16 +31,19 @@ class UserRegistrationForm(BasePage):
         self.browser.find_element(*self.INPUT_PASSWORD_CONFIRM).send_keys(f"qwerty")
         return self
 
+    @step("Accept privacy policy")
     def accept_privacy_policy(self):
-        self.logger.info("Accept privacy policy")
+        self.logger.info("STEP: Accept privacy policy")
         self.browser.find_element(*self.CHECKBOX_PRIVACY_POLICY).click()
         return self
 
+    @step("Submit registration form")
     def send_registration_form(self):
-        self.logger.info("Submit registration form")
+        self.logger.info("STEP: Submit registration form")
         self.browser.find_element(*self.BTN_CONTINUE).click()
         return self
 
+    @step("Check success registration message after submit form")
     def check_success_registration_message(self):
-        self.logger.info("Check success registration message")
+        self.logger.info("STEP: Check success registration message")
         self.browser.find_element(*self.SUCCESS_REGISTRATION_MESSAGE)
