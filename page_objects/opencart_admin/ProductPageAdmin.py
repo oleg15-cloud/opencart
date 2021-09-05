@@ -1,7 +1,6 @@
 import random
 
 from allure import step
-from selenium.webdriver.common.by import By
 from page_objects.opencart_admin.BasePageAdmin import BasePageAdmin
 from page_objects.opencart_admin.elements.Alerts import Alerts
 from page_objects.opencart_admin.elements.CreateProductForm import CreateProductFrom
