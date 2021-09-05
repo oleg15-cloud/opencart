@@ -2,6 +2,7 @@ import pytest
 import logging
 
 from selenium import webdriver
+from selenium.webdriver.opera.options import Options as OperaOptions
 
 logging.basicConfig(level=logging.INFO, filename="logs/logger.log",
                     format='%(asctime)s %(levelname)s %(filename)s %(message)s')
@@ -24,6 +25,8 @@ def pytest_addoption(parser):
 def browser(request):
     browser = request.config.getoption("--browser")
     url = request.config.getoption("--url")
+    headless = request.config.getoption("--headless")
+    maximized = request.config.getoption("--maximized")
 
     executor = request.config.getoption("--executor")
     version = request.config.getoption("--bversion")
@@ -36,10 +39,29 @@ def browser(request):
 
     logger.info(f"-----> Test '{test_name}' started -----")
 
+    driver = None
+
     if executor == "local":
         caps = {'goog:chromeOptions': {}}
 
-        driver = webdriver.Chrome(desired_capabilities=caps)
+        if browser == "chrome":
+            options = webdriver.ChromeOptions()
+            if headless:
+                options.headless = True
+            driver = webdriver.Chrome(options=options, desired_capabilities=caps)
+        if browser == "firefox":
+            options = webdriver.FirefoxOptions()
+            if headless:
+                options.headless = True
+            driver = webdriver.Firefox(options=options, desired_capabilities=caps)
+        if browser == "opera":
+            options = OperaOptions()
+            if headless:
+                options.headless = True
+            driver = webdriver.Opera(options=options, desired_capabilities=caps)
+
+        if maximized:
+            driver.maximize_window()
 
     else:
         executor_url = f"http://{executor}:4444/wd/hub"
@@ -50,6 +72,7 @@ def browser(request):
             "screenResolution": "1280x720",
             "name": "opencart",
             "selenoid:options": {
+                "sessionTimeout": "60s",
                 "enableVNC": vnc,
                 "enableVideo": videos,
                 "enableLog": logs
@@ -60,10 +83,15 @@ def browser(request):
             'goog:chromeOptions': {}
         }
 
+        logger.info(f"Browser {browser} started remote on {executor_url}. "
+                    f"Browser caps: {caps}")
+
         driver = webdriver.Remote(
             command_executor=executor_url,
             desired_capabilities=caps
         )
+
+        driver.maximize_window()
 
     def open(path=""):
         logger.info(f"Open url '{url}{path}'")
@@ -72,9 +100,8 @@ def browser(request):
     driver.open = open
     driver.open()
 
-    driver.maximize_window()
-
     def fin():
+        logger.info(f"-----> Test '{test_name}' finished -----")
         driver.quit()
 
     request.addfinalizer(fin)
