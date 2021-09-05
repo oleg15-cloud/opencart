@@ -6,13 +6,13 @@ from selenium.webdriver.support import expected_conditions as ec
 
 
 class Navigation(BasePageAdmin):
-    NAVIGATION_CATALOG = (By.XPATH, "//li[@id='menu-catalog']")
+    NAVIGATION_CATALOG = "//li[@id='menu-catalog']"
     NAVIGATION_CATALOG_PRODUCTS = "//a[text()='Products']"
 
     @step("Open dropdown 'Catalog'")
     def open_catalog_dropdown(self):
         self.logger.info("STEP: Open catalog dropdown")
-        self.browser.find_element(*self.NAVIGATION_CATALOG).click()
+        self.get_element(self.NAVIGATION_CATALOG).click()
         return self
 
     @step("Open product page")
