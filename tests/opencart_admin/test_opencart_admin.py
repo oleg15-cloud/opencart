@@ -4,7 +4,7 @@ from page_objects.opencart_admin.MainPageAdmin import MainPageAdmin
 from page_objects.opencart_admin.ProductPageAdmin import ProductPageAdmin
 
 
-@title("Add new product")
+@title("Add new product to product list")
 def test_adding_a_new_product_in_the_admin_section(browser, user):
     LoginPageAdmin(browser).authorization_with(*user)
     MainPageAdmin(browser).go_to_product_page()
@@ -13,7 +13,7 @@ def test_adding_a_new_product_in_the_admin_section(browser, user):
     ProductPageAdmin(browser).check_product_in_product_list(product_name)
 
 
-@title("Delete product")
+@title("Delete product from product list")
 def test_delete_product_in_the_admin_section(browser, user):
     LoginPageAdmin(browser).authorization_with(*user)
     MainPageAdmin(browser).go_to_product_page()
