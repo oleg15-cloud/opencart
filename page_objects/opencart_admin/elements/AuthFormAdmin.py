@@ -1,20 +1,24 @@
-from selenium.webdriver.common.by import By
+from allure import step
 from page_objects.opencart_admin.BasePageAdmin import BasePageAdmin
 
 
 class AuthFormAdmin(BasePageAdmin):
     path = "/admin/"
 
-    INPUT_USERNAME = (By.XPATH, "//input[@name='username']")
-    INPUT_PASSWORD = (By.XPATH, "//input[@name='password']")
-    BTN_LOGIN = (By.XPATH, "//button[@class='btn btn-primary']")
+    INPUT_USERNAME = "//input[@name='username']"
+    INPUT_PASSWORD = "//input[@name='password']"
+    BTN_LOGIN = "//button[@class='btn btn-primary']"
 
+    @step("Fill out authorization form")
     def fill_out_auth_form(self, username, password):
-        self.browser.find_element(*self.INPUT_USERNAME).clear()
-        self.browser.find_element(*self.INPUT_USERNAME).send_keys(username)
-        self.browser.find_element(*self.INPUT_PASSWORD).clear()
-        self.browser.find_element(*self.INPUT_PASSWORD).send_keys(password)
+        self.logger.info(f"STEP: Fill out authorization form. username: {username}, password: {password}")
+        self.get_element(self.INPUT_USERNAME).clear()
+        self.get_element(self.INPUT_USERNAME).send_keys(username)
+        self.get_element(self.INPUT_PASSWORD).clear()
+        self.get_element(self.INPUT_PASSWORD).send_keys(password)
         return self
 
+    @step("Submit authorization form")
     def send_auth_from(self):
-        self.browser.find_element(*self.BTN_LOGIN).click()
+        self.logger.info("STEP: Submit authorization form")
+        self.get_element(self.BTN_LOGIN).click()
