@@ -1,11 +1,14 @@
 import pytest
 import logging
 
+from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.opera.options import Options as OperaOptions
 
-logging.basicConfig(level=logging.INFO, filename="logs/logger.log",
-                    format='%(asctime)s %(levelname)s %(filename)s %(message)s')
+logging.basicConfig(
+    level=logging.INFO, filename=Path("logger.log").resolve(),
+    format='%(asctime)s %(levelname)s %(filename)s %(message)s'
+)
 
 
 def pytest_addoption(parser):
